@@ -1,6 +1,7 @@
 package com.ccode.currency.mixin;
 
 import com.ccode.currency.util.IEntityDataSaver;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -8,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import javax.swing.text.html.parser.Entity;
 
 @Mixin(Entity.class)
 public abstract class ModEntityDataSaverMixin implements IEntityDataSaver {
@@ -23,7 +23,7 @@ public abstract class ModEntityDataSaverMixin implements IEntityDataSaver {
     }
 
     @Inject(method = "writeNbt", at = @At("HEAD"))
-    protected void injectWriteMethod(NbtCompound nbt, CallbackInfo info) {
+    protected void injectWriteMethod(NbtCompound nbt, CallbackInfoReturnable info) {
         if(persistentData != null) {
             nbt.put("currency.data", persistentData);
         }

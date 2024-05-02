@@ -18,4 +18,9 @@ public class MoneyData {
         nbt.putInt("money", money);
         return money;
     }
+
+    public static int getMoney(IEntityDataSaver player) {
+        NbtCompound nbt = player.getPersistentData();
+        return nbt.getInt("money");
+    }
 }
